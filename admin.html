@@ -1,0 +1,28 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>لوحة الأدمن</title>
+<style>body{font-family:system-ui;background:#07140f;color:#eaf4ee;max-width:900px;margin:auto;padding:16px}input,select,textarea{width:100%;padding:9px;margin:4px 0;border-radius:10px;border:1px solid #1b3a2d;background:#0e2119;color:#fff;font:inherit}
+.c{background:#0e2119;border:1px solid #1b3a2d;border-radius:16px;padding:12px;margin:10px 0}button{background:#14b37d;color:#fff;border:0;padding:10px 22px;border-radius:12px;font:inherit;cursor:pointer}</style></head><body>
+<h2>🛠 لوحة الأدمن</h2>
+<div class=c id=lg><p>الدخول بتوكن GitHub (Fine-grained، صلاحية Contents: Read/Write لهذا المستودع فقط). يُحفظ في متصفحك فقط ولا يُرفع لأي مكان.</p>
+<input id=rp placeholder="username/repo"><input id=tk type=password placeholder="GitHub token"><button onclick=go()>دخول</button></div>
+<div class=c id=mf style="display:none"><b>➕ إضافة تطبيق يدوي</b><input id=mt placeholder="الاسم"><textarea id=md placeholder="الوصف"></textarea><input id=ml placeholder="رابط التحميل"><input id=mi placeholder="رابط الأيقونة أو الصورة"><button onclick=addM()>إضافة</button></div><div id=ls></div><button id=sv style="display:none;position:sticky;bottom:10px" onclick=save()>💾 حفظ ونشر</button>
+<script>
+const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let P=[],O={},sha;const H=()=>({Authorization:'Bearer '+tk.value,Accept:'application/vnd.github+json'});
+rp.value=localStorage.rp||'';tk.value=sessionStorage.tk||'';
+async function go(){const r=await fetch('https://api.github.com/repos/'+rp.value,{headers:H()}).then(r=>r.json());
+ if(!r.permissions||!r.permissions.push)return alert('التوكن لا يملك صلاحية الكتابة');
+ localStorage.rp=rp.value;sessionStorage.tk=tk.value;lg.style.display='none';sv.style.display='';mf.style.display='';
+ const f=async p=>fetch(`https://api.github.com/repos/${rp.value}/contents/${p}`,{headers:H()}).then(r=>r.json());
+ P=await fetch(`https://api.github.com/repos/${rp.value}/contents/data/posts.json`,{headers:{...H(),Accept:'application/vnd.github.raw+json'}}).then(r=>r.json());
+ const o=await f('data/overrides.json');sha=o.sha;O=JSON.parse(decodeURIComponent(escape(atob(o.content.replace(/\n/g,'')))));P=[...Object.entries(O).filter(([k])=>k[0]=='m').map(([k,v])=>({id:k,type:'app',desc:'',date:'',...v})),...P];draw()}
+const CATS=['القرآن','الأذكار','الصلاة','الحديث والفقه','الأطفال','أخرى'];
+function addM(){const id='m'+Date.now();O[id]={title:mt.value,desc:md.value,links:[ml.value],images:[mi.value].filter(Boolean),cat:'أخرى',type:'app',date:new Date().toISOString()};P.unshift({id,...O[id]});draw()}
+function draw(){ls.innerHTML=P.map(p=>{const o=O[p.id]||{};return`<div class=c><b>#${p.id}</b> <small>${E(p.date.slice(0,10))}</small>
+<input data-i=${p.id} data-k=title value="${E(o.title??p.title)}"><select data-i=${p.id} data-k=type><option value=app ${(o.type??p.type)=='app'?'selected':''}>تطبيق</option><option value=news ${(o.type??p.type)=='news'?'selected':''}>خبر</option></select><select data-i=${p.id} data-k=cat>${CATS.map(c=>`<option ${(o.cat??p.cat)==c?'selected':''}>${c}</option>`).join('')}</select>
+<textarea rows=3 data-i=${p.id} data-k=desc>${E(o.desc??p.desc)}</textarea><label><input type=checkbox style="width:auto" data-i=${p.id} data-k=hidden ${o.hidden?'checked':''}> إخفاء</label></div>`}).join('')}
+async function save(){document.querySelectorAll('[data-i]').forEach(e=>{const p=P.find(x=>x.id==e.dataset.i),k=e.dataset.k,v=e.type=='checkbox'?e.checked:e.value;
+ if(v!==(p[k]??(k=='hidden'?false:undefined))){(O[p.id]=O[p.id]||{})[k]=v}});
+ const body=JSON.stringify({message:'admin edit',sha,content:btoa(unescape(encodeURIComponent(JSON.stringify(O,null,1))))});
+ const r=await fetch(`https://api.github.com/repos/${rp.value}/contents/data/overrides.json`,{method:'PUT',headers:H(),body}).then(r=>r.json());
+ if(r.content){sha=r.content.sha;alert('تم الحفظ، يظهر خلال دقيقة')}else alert('فشل: '+r.message)}
+</script></body></html>

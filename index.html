@@ -1,0 +1,81 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>متجر التطبيقات الإسلامية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ec;--c:#fff;--t:#10281f;--m:#5b6b63;--g:#0f7a55;--g2:#14b37d;--au:#c9a227;--b:#e4e0d0}
+@media(prefers-color-scheme:dark){:root{--bg:#07140f;--c:#0e2119;--t:#eaf4ee;--m:#8fa89b;--b:#1b3a2d}}
+*{box-sizing:border-box}body{margin:0;font-family:Cairo,system-ui,sans-serif;background:var(--bg);color:var(--t)}
+body:before{content:"";position:fixed;inset:0;z-index:-1;opacity:.07;background:conic-gradient(from 45deg at 50% 50%,var(--g) 0 25%,transparent 0 50%,var(--g) 0 75%,transparent 0) 0 0/46px 46px}
+header{background:linear-gradient(135deg,#0b5a40,#14b37d);color:#fff;text-align:center;padding:34px 16px 70px;border-radius:0 0 40px 40px}
+header small{color:#f1d97a}h1{margin:6px 0;font-size:clamp(24px,5vw,40px);font-weight:900}
+.s{max-width:560px;margin:-28px auto 0;padding:0 16px}.s input{width:100%;padding:15px 22px;border-radius:30px;border:2px solid var(--au);font:inherit;background:var(--c);color:var(--t);box-shadow:0 8px 28px #0003}
+.tabs{flex-wrap:wrap;display:flex;gap:8px;justify-content:center;margin:22px 0}.tabs button{padding:10px 26px;border-radius:24px;border:1px solid var(--b);background:var(--c);color:var(--t);font:inherit;font-weight:700;cursor:pointer;transition:.25s}
+.tabs .on{background:var(--g);color:#fff;border-color:var(--g);transform:scale(1.06)}
+main{max-width:1100px;margin:auto;padding:0 16px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:22px;padding:16px;cursor:pointer;transition:.3s;animation:up .5s both}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 34px #0f7a5533;border-color:var(--g2)}
+@keyframes up{from{opacity:0;transform:translateY(20px)}}
+.row{display:flex;gap:12px;align-items:center}.ic{width:64px;height:64px;border-radius:16px;object-fit:cover;background:linear-gradient(135deg,var(--g),var(--au));flex:none}
+.card h3{margin:0;font-size:16px}.m{color:var(--m);font-size:12px}.st{color:var(--au)}
+.btn{display:inline-block;margin-top:12px;padding:9px 22px;border-radius:20px;background:var(--g);color:#fff;border:0;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;position:relative;overflow:hidden}
+.news{grid-column:1/-1;display:flex;gap:14px}.news img{width:140px;border-radius:14px;object-fit:cover}.news p{white-space:pre-wrap;margin:4px 0;color:var(--m)}
+dialog{border:0;border-radius:26px;max-width:640px;width:94%;background:var(--c);color:var(--t);padding:22px;max-height:90vh}dialog::backdrop{background:#000a;backdrop-filter:blur(4px)}
+.shots{display:flex;gap:10px;overflow-x:auto;margin:14px 0;scroll-snap-type:x mandatory}.shots img{height:260px;border-radius:14px;scroll-snap-align:start}
+.desc{white-space:pre-wrap;line-height:1.9}.rv{border-top:1px solid var(--b);padding:8px 0}
+textarea,select,input.f{width:100%;padding:10px;border-radius:12px;border:1px solid var(--b);background:var(--bg);color:var(--t);font:inherit;margin-top:6px}
+.bar{height:6px;background:#fff5;position:absolute;left:0;bottom:0;width:0;transition:width 1.4s}
+footer{text-align:center;color:var(--m);padding:20px;font-size:13px}footer a{color:var(--g)}
+</style></head><body>
+<header><small>بسم الله الرحمن الرحيم</small><h1>🕌 متجر التطبيقات الإسلامية</h1><div>تطبيقات نافعة، تُحدَّث تلقائياً من قناتنا</div><button id=lgn class=btn style="display:none;background:#0005"></button></header>
+<div class="s"><input id="q" placeholder="ابحث عن تطبيق أو خبر..."></div>
+<div class="tabs"><button id="ta" class="on">📱 التطبيقات</button><button id="tn">📰 آخر الأخبار</button></div>
+<div class=tabs id=cats></div><main id="g"></main><dialog id="d"></dialog>
+<footer>تابعنا على <a href="https://t.me/muslim_appss">تليجرام</a> · تُرفع التطبيقات بعد مراجعة موافقتها للشريعة</footer>
+<script type="module">
+import {CFG} from './firebase-config.js';
+if(CFG&&CFG.apiKey){
+const V='https://www.gstatic.com/firebasejs/10.14.1/';
+const A=await import(V+'firebase-app.js'),U=await import(V+'firebase-auth.js'),F=await import(V+'firebase-firestore.js');
+const app=A.initializeApp(CFG),au=U.getAuth(app),db=F.getFirestore(app);
+window.FB={login:()=>U.signInWithPopup(au,new U.GoogleAuthProvider()),logout:()=>U.signOut(au),user:()=>au.currentUser,
+ save:r=>F.setDoc(F.doc(db,'reviews',r.p+'_'+au.currentUser.uid),{...r,u:au.currentUser.uid,ts:Date.now()}),
+ all:async()=>(await F.getDocs(F.collection(db,'reviews'))).docs.map(d=>d.data())};
+U.onAuthStateChanged(au,()=>window.authUI&&authUI());
+dispatchEvent(new Event('fb'));}
+</script>
+<script>
+const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let P=[],tab='app',cat='الكل',R=JSON.parse(localStorage.rv||'{}');const CATS=['الكل','القرآن','الأذكار','الصلاة','الحديث والفقه','الأطفال','أخرى'];
+const avg=i=>{const a=R[i]||[];return a.length?a.reduce((s,x)=>s+x.s,0)/a.length:0};
+const stars=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
+const j=u=>fetch(u+'?t='+Date.now()).then(r=>r.json()).catch(()=>[]);
+Promise.all([j('data/posts.json'),j('data/overrides.json')]).then(([p,o])=>{P=[...Object.entries(o).filter(([k])=>k[0]=='m').map(([k,v])=>({id:k,type:'app',date:'',desc:'',images:[],links:[],tg:'',...v})),...p.map(x=>({...x,...(o[x.id]||{})}))].filter(x=>!x.hidden);draw()});
+function draw(){const q=$q.value.trim();g.innerHTML='';cats.innerHTML='';if(tab=='app')CATS.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.className=c==cat?'on':'';b.onclick=()=>{cat=c;draw()};cats.append(b)});
+ P.filter(p=>p.type==tab&&(p.title+p.desc).includes(q)&&(tab=='news'||cat=='الكل'||p.cat==cat)).forEach((p,i)=>{const c=document.createElement('div');
+  c.style.animationDelay=Math.min(i*40,600)+'ms';
+  const im=p.images&&p.images[0]?`<img class="ic" loading="lazy" src="${E(p.images[0])}">`:'<div class="ic"></div>';
+  c.className='card'+(tab=='news'?' news':'');
+  c.innerHTML=tab=='news'?`${p.images[0]?`<img loading=lazy src="${E(p.images[0])}">`:''}<div><h3>${E(p.title)}</h3><p>${E(p.desc.slice(0,300))}</p><span class=m>${E(p.date.slice(0,10))}</span></div>`
+   :`<div class=row>${im}<div><h3>${E(p.title)}</h3><div class=m>${p.version?'v'+E(p.version):''}</div><div class=st>${stars(avg(p.id))} <span class=m>${avg(p.id)?avg(p.id).toFixed(1):'جديد'}</span></div></div></div><button class=btn>عرض</button>`;
+  c.onclick=()=>open_(p);g.append(c)});
+ if(!g.children.length)g.innerHTML='<p class=m style="grid-column:1/-1;text-align:center">لا يوجد محتوى بعد</p>'}
+const $q=document.getElementById('q');$q.oninput=draw;
+addEventListener('fb',async()=>{lgn.style.display='';window.authUI=()=>{const u=FB.user();lgn.textContent=u?'خروج ('+(u.displayName||'')+')':'🔐 تسجيل الدخول';lgn.onclick=()=>u?FB.logout():FB.login()};authUI();
+ try{R={};(await FB.all()).forEach(x=>(R[x.p]=R[x.p]||[]).push(x))}catch(e){}draw()});
+ta.onclick=()=>{tab='app';ta.className='on';tn.className='';draw()};tn.onclick=()=>{tab='news';tn.className='on';ta.className='';draw()};
+function open_(p){const url=p.file||(p.links&&p.links[0])||p.tg;
+ d.innerHTML=`<div class=row>${p.images[0]?`<img class=ic src="${E(p.images[0])}">`:'<div class=ic></div>'}<div><h2 style="margin:0">${E(p.title)}</h2><div class=st>${stars(avg(p.id))}</div></div></div>
+ ${p.type=='app'?`<a class=btn id=dl href="${E(url)}" target=_blank rel=noopener>⬇ ${p.file?'تحميل مباشر':'تحميل'}<span class=bar></span></a> ${p.tg?`<a class=btn style="background:var(--au)" href="${E(p.tg)}" target=_blank>تليجرام</a>`:''}`:''}
+ <div class=shots>${p.images.slice(1).map(x=>`<img loading=lazy src="${E(x)}">`).join('')}</div>
+ ${p.video?`<video controls style="width:100%;border-radius:14px" src="${E(p.video)}"></video>`:''}
+ <div class=desc>${E(p.desc)}</div><h3>التقييمات</h3><div id=rl></div>
+ <select id=rs>${[5,4,3,2,1].map(n=>`<option value=${n}>${stars(n)}</option>`).join('')}</select>
+ <input class=f id=rn placeholder="اسمك"><textarea id=rt placeholder="اكتب مراجعتك"></textarea><button class=btn id=rb>إرسال</button> <button class=btn style="background:#777" onclick=d.close()>إغلاق</button>`;
+ const L=()=>rl.innerHTML=(R[p.id]||[]).map(x=>`<div class=rv><b>${E(x.n)}</b> <span class=st>${stars(x.s)}</span><div>${E(x.t)}</div></div>`).join('')||'<span class=m>كن أول من يقيّم</span>';L();
+ rb.onclick=async()=>{const r={p:String(p.id),n:rn.value||'زائر',s:+rs.value,t:rt.value.slice(0,400)};
+ if(window.FB){if(!FB.user()){try{await FB.login()}catch(e){return}}const u=FB.user();r.n=u.displayName||r.n;await FB.save(r);R[p.id]=(R[p.id]||[]).filter(x=>x.u!=u.uid);R[p.id].unshift({...r,u:u.uid})}
+ else{(R[p.id]=R[p.id]||[]).unshift(r);localStorage.rv=JSON.stringify(R)}
+ L();rt.value='';draw()};
+ const b=document.getElementById('dl');if(b)b.onclick=()=>{b.querySelector('.bar').style.width='100%'};
+ d.showModal()}
+</script></body></html>
