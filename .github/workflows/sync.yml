@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
-      - run: pip install requests beautifulsoup4 telethon
+      - run: pip install requests beautifulsoup4 telethon pillow icoextract androguard
       - run: python scripts/sync.py
         env:
           CHANNEL: muslim_appss
@@ -29,6 +29,8 @@ jobs:
           TG_API_ID: ${{ secrets.TG_API_ID }}
           TG_API_HASH: ${{ secrets.TG_API_HASH }}
           TG_SESSION: ${{ secrets.TG_SESSION }}
+      - run: python scripts/icons.py
+        continue-on-error: true
       - env: {GH_TOKEN: "${{ github.token }}"}
         run: |
           git config user.name "store-bot"; git config user.email "bot@users.noreply.github.com"
