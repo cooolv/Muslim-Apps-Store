@@ -15,10 +15,11 @@ async function go(){const r=await fetch('https://api.github.com/repos/'+rp.value
  const f=async p=>fetch(`https://api.github.com/repos/${rp.value}/contents/${p}`,{headers:H()}).then(r=>r.json());
  P=await fetch(`https://api.github.com/repos/${rp.value}/contents/data/posts.json`,{headers:{...H(),Accept:'application/vnd.github.raw+json'}}).then(r=>r.json());
  const o=await f('data/overrides.json');sha=o.sha;O=JSON.parse(decodeURIComponent(escape(atob(o.content.replace(/\n/g,'')))));P=[...Object.entries(O).filter(([k])=>k[0]=='m').map(([k,v])=>({id:k,type:'app',desc:'',date:'',...v})),...P];draw()}
+const TYPES=[['app','تطبيق'],['desktop','سطح المكتب'],['addons','إضافة'],['media','ملف/وسائط'],['news','خبر']];
 const CATS=['القرآن','الأذكار','الصلاة','الحديث والفقه','الأطفال','أخرى'];
 function addM(){const id='m'+Date.now();O[id]={title:mt.value,desc:md.value,links:[ml.value],images:[mi.value].filter(Boolean),cat:'أخرى',type:'app',date:new Date().toISOString()};P.unshift({id,...O[id]});draw()}
 function draw(){ls.innerHTML=P.map(p=>{const o=O[p.id]||{};return`<div class=c><b>#${p.id}</b> <small>${E(p.date.slice(0,10))}</small>
-<input data-i=${p.id} data-k=title value="${E(o.title??p.title)}"><select data-i=${p.id} data-k=type><option value=app ${(o.type??p.type)=='app'?'selected':''}>تطبيق</option><option value=news ${(o.type??p.type)=='news'?'selected':''}>خبر</option></select><select data-i=${p.id} data-k=cat>${CATS.map(c=>`<option ${(o.cat??p.cat)==c?'selected':''}>${c}</option>`).join('')}</select>
+<input data-i=${p.id} data-k=title value="${E(o.title??p.title)}"><select data-i=${p.id} data-k=type>${TYPES.map(([k,l])=>`<option value=${k} ${(o.type??p.type)==k?'selected':''}>${l}</option>`).join('')}</select><select data-i=${p.id} data-k=cat>${CATS.map(c=>`<option ${(o.cat??p.cat)==c?'selected':''}>${c}</option>`).join('')}</select>
 <textarea rows=3 data-i=${p.id} data-k=desc>${E(o.desc??p.desc)}</textarea><label><input type=checkbox style="width:auto" data-i=${p.id} data-k=hidden ${o.hidden?'checked':''}> إخفاء</label></div>`}).join('')}
 async function save(){document.querySelectorAll('[data-i]').forEach(e=>{const p=P.find(x=>x.id==e.dataset.i),k=e.dataset.k,v=e.type=='checkbox'?e.checked:e.value;
  if(v!==(p[k]??(k=='hidden'?false:undefined))){(O[p.id]=O[p.id]||{})[k]=v}});
