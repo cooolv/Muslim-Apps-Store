@@ -23,6 +23,7 @@ dialog{border:0;border-radius:26px;max-width:640px;width:94%;background:var(--c)
 .shots{display:flex;gap:10px;overflow-x:auto;margin:14px 0;scroll-snap-type:x mandatory}.shots img{height:260px;border-radius:14px;scroll-snap-align:start}
 .desc{white-space:pre-wrap;line-height:1.9}.rv{border-top:1px solid var(--b);padding:8px 0}
 textarea,select,input.f{width:100%;padding:10px;border-radius:12px;border:1px solid var(--b);background:var(--bg);color:var(--t);font:inherit;margin-top:6px}
+ .xw{position:sticky;top:0;height:0;z-index:5;text-align:left}.x{width:38px;height:38px;border-radius:50%;border:0;background:#000a;color:#fff;font-size:18px;cursor:pointer}
 .bar{height:6px;background:#fff5;position:absolute;left:0;bottom:0;width:0;transition:width 1.4s}
 footer{text-align:center;color:var(--m);padding:20px;font-size:13px}footer a{color:var(--g)}
 </style></head><body>
@@ -65,7 +66,7 @@ addEventListener('fb',async()=>{lgn.style.display='';window.authUI=()=>{const u=
 const TABS=[['app','📱 التطبيقات'],['desktop','🖥 سطح المكتب'],['addons','🧩 الإضافات'],['media','🎞 الملفات والوسائط'],['news','📰 آخر الأخبار']];
 TABS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.k=k;b.className=k==tab?'on':'';b.onclick=()=>{tab=k;tb.querySelectorAll('button').forEach(x=>x.className=x.dataset.k==k?'on':'');draw()};tb.append(b)});
 function open_(p){const url=p.file||(p.links&&p.links[0])||p.tg;
- d.innerHTML=`<div class=row>${(p.icon||p.images[0])?`<img class=ic src="${E(p.icon||p.images[0])}">`:'<div class=ic></div>'}<div><h2 style="margin:0">${E(p.title)}</h2><div class=st>${stars(avg(p.id))}</div></div></div>
+d.innerHTML=`<div class=xw><button class=x onclick=d.close() aria-label="إغلاق">✕</button></div><div class=row>${(p.icon||p.images[0])?`<img class=ic src="${E(p.icon||p.images[0])}">`:'<div class=ic></div>'}<div><h2 style="margin:0">${E(p.title)}</h2><div class=st>${stars(avg(p.id))}</div></div></div>
  ${p.type!='news'?`${(p.file||p.doc||(p.links&&p.links[0]))?`<a class=btn id=dl href="${E(url)}" target=_blank rel=noopener>⬇ ${p.file?'تحميل مباشر':'تحميل'}<span class=bar></span></a>`:''} ${p.tg?`<a class=btn style="background:var(--au)" href="${E(p.tg)}" target=_blank>تليجرام</a>`:''}`:''}
  <div class=shots>${p.images.slice(p.icon?0:1).map(x=>`<img loading=lazy src="${E(x)}">`).join('')}</div>
  ${p.video?`<video controls style="width:100%;border-radius:14px" src="${E(p.video)}"></video>`:''}
@@ -78,5 +79,5 @@ function open_(p){const url=p.file||(p.links&&p.links[0])||p.tg;
  else{(R[p.id]=R[p.id]||[]).unshift(r);localStorage.rv=JSON.stringify(R)}
  L();rt.value='';draw()};
  const b=document.getElementById('dl');if(b)b.onclick=()=>{b.querySelector('.bar').style.width='100%'};
- d.showModal()}
+ d.onclick=e=>{if(e.target===d)d.close()};d.showModal()}
 </script></body></html>
