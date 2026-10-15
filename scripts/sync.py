@@ -4,6 +4,13 @@ CH = os.environ.get("CHANNEL", "muslim_appss")
 P = "data/posts.json"
 CATS = [("القرآن", r"قرآن|مصحف|تلاوة|تفسير|تجويد"), ("الأذكار", r"أذكار|ذكر|دعاء|أدعية|تسبيح|سبحة"),
         ("الصلاة", r"صلاة|أذان|قبلة|مواقيت"), ("الحديث والفقه", r"حديث|فقه|فتاو|سيرة|بخاري"), ("الأطفال", r"أطفال|طفل|قصص")]
+def is_app(text, doc, links):
+    if re.search(r"#(خبر|أخبار|اخبار|news)", text, re.I): return False   # وسم صريح: خبر
+    if re.search(r"#(تطبيق|تطبيقات|app)", text, re.I): return True       # وسم صريح: تطبيق
+    if re.search(r"\.(apk|xapk|apks|obb)$", doc, re.I): return True      # ملف تطبيق
+    if any(re.search(r"play\.google|apps\.apple|appgallery|f-droid", l) for l in links): return True
+    strong = re.search(r"(apk|رابط التحميل|تحميل التطبيق|حمّل التطبيق|حمل التطبيق|download|الإصدار|النسخة|version)", text, re.I)
+    return bool(strong and (links or doc))   # كلمة قوية + رابط أو ملف
 def catof(t):
     for n, r in CATS:
         if re.search(r, t): return n
@@ -50,17 +57,18 @@ for i in sorted(raw):
     pend = []
     lines = [l for l in m["text"].split("\n") if l.strip()]
     ver = re.search(r"(?:v|الإصدار|النسخة|version)\s*[:：]?\s*(\d[\d.]*)", m["text"], re.I)
-    is_app = bool(re.search(r"\.(apk|xapk|apks|zip)$", m["doc"], re.I)) or bool(
-        re.search(r"(apk|تطبيق|تحميل|download|الإصدار|النسخة)", m["text"], re.I))
+    app = is_app(m["text"], m["doc"], m["links"])
     imgs = []
     for n, u in enumerate(m["photos"]):
         f = f"media/{i}_{n}.jpg"
         try: open(f, "wb").write(requests.get(u, timeout=30).content); imgs.append(f)
         except Exception: imgs.append(u)
-    new.append(dict(id=i, date=m["date"], type="app" if is_app else "news", title=lines[0][:80],
+    new.append(dict(id=i, date=m["date"], type="app" if app else "news", title=lines[0][:80],
                     desc="\n".join(lines[1:]) or m["text"], version=ver.group(1) if ver else "",
                     links=[l for l in m["links"] if "t.me" not in l], images=imgs, video=m["video"],
                     doc=m["doc"], cat=catof(m["text"]), tg=f"https://t.me/{CH}/{i}"))
 allp = sorted(old + new, key=lambda p: -p["id"])
+for p in allp:  # إعادة تصنيف كل المنشورات (القديمة أيضاً) بالقاعدة الجديدة
+    p["type"] = "app" if is_app(p["title"] + "\n" + p["desc"], p.get("doc", ""), p.get("links", [])) else "news"
 json.dump(allp, open(P, "w"), ensure_ascii=False, indent=1)
 print("new posts:", len(new))
