@@ -2,6 +2,8 @@ name: sync-telegram
 on:
   schedule: [{cron: "*/10 * * * *"}]
   workflow_dispatch:
+    inputs:
+      refresh: {description: "إعادة فحص كل تاريخ القناة", type: boolean, default: false}
 permissions:
   contents: write
   pages: write
@@ -16,8 +18,11 @@ jobs:
         with: {python-version: "3.12"}
       - run: pip install requests beautifulsoup4 telethon
       - run: python scripts/sync.py
-        env: {CHANNEL: muslim_appss}
+        env:
+          CHANNEL: muslim_appss
+          REFRESH: ${{ inputs.refresh && '1' || '' }}
       - run: python scripts/files.py
+        continue-on-error: true
         env:
           CHANNEL: muslim_appss
           GH_TOKEN: ${{ github.token }}
