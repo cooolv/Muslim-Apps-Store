@@ -39,7 +39,7 @@ const V='https://www.gstatic.com/firebasejs/10.14.1/';
 const A=await import(V+'firebase-app.js'),U=await import(V+'firebase-auth.js'),F=await import(V+'firebase-firestore.js');
 const app=A.initializeApp(CFG),au=U.getAuth(app),db=F.getFirestore(app);
 window.FB={login:()=>U.signInWithPopup(au,new U.GoogleAuthProvider()),logout:()=>U.signOut(au),user:()=>au.currentUser,
- save:r=>F.setDoc(F.doc(db,'reviews',r.p+'_'+au.currentUser.uid),{...r,u:au.currentUser.uid,ts:Date.now()}),
+ save:r=>F.setDoc(F.doc(db,'store_reviews',r.p+'_'+au.currentUser.uid),{...r,u:au.currentUser.uid,ts:Date.now()}),
  all:async()=>(await F.getDocs(F.collection(db,'reviews'))).docs.map(d=>d.data())};
 U.onAuthStateChanged(au,()=>window.authUI&&authUI());
 dispatchEvent(new Event('fb'));}
