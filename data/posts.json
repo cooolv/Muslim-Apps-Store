@@ -1,5 +1,25 @@
 [
  {
+  "id": 664,
+  "date": "2026-10-15T09:37:01+00:00",
+  "type": "news",
+  "title": "🔴 المشكلة ليست في استخدام التواصل… المشكلة فيما قد يصل إليك من خلاله.",
+  "desc": "محتوى غير لائق، روابط محرمة، تضييع للأوقات، وصعوبة التحكم فيما يظهر أمامك.\n🟢 الحل؟ تطبيق وسائل تواصل المسلم.\nتجربة مصممة لتمنحك حماية أكبر وتحكمًا أفضل في استخدامك:\n🛡 حماية من الروابط والمقاطع غير اللائقة\n🌐 متصفح إسلامي مدمج\n⏳ تحديد وقت الاستخدام\n🚫 حظر المواقع غير المرغوبة\n🔇 كتم الأصوات غير المناسبة\n🌙 وضع ليلي ونهاري\n📱 جمع مواقع التواصل في تطبيق واحد\nلا تنتظر حتى تصبح المشكلة عادة… ابدأ بالحماية من الآن.\n📥 التحميل:\nt.me/muslim_appss/500\n#وسائل_تواصل_المسلم #الحل_في_يديك #حماية_رقمية",
+  "version": "",
+  "links": [
+   "?q=%23%D9%88%D8%B3%D8%A7%D8%A6%D9%84_%D8%AA%D9%88%D8%A7%D8%B5%D9%84_%D8%A7%D9%84%D9%85%D8%B3%D9%84%D9%85",
+   "?q=%23%D8%A7%D9%84%D8%AD%D9%84_%D9%81%D9%8A_%D9%8A%D8%AF%D9%8A%D9%83",
+   "?q=%23%D8%AD%D9%85%D8%A7%D9%8A%D8%A9_%D8%B1%D9%82%D9%85%D9%8A%D8%A9"
+  ],
+  "images": [
+   "media/664_0.jpg"
+  ],
+  "video": "",
+  "doc": "",
+  "cat": "أخرى",
+  "tg": "https://t.me/muslim_appss/664"
+ },
+ {
   "id": 663,
   "date": "2026-10-10T09:32:01+00:00",
   "type": "news",
@@ -4415,7 +4435,9 @@
   "video": "",
   "doc": "cpm.muslimapps.toreans_#1_1.0.apk",
   "cat": "الحديث والفقه",
-  "tg": "https://t.me/muslim_appss/356"
+  "tg": "https://t.me/muslim_appss/356",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/356.apk",
+  "size": 5776478
  },
  {
   "id": 355,
@@ -4433,7 +4455,9 @@
   "video": "",
   "doc": "Muslim App Store.apk.png.apk",
   "cat": "الحديث والفقه",
-  "tg": "https://t.me/muslim_appss/355"
+  "tg": "https://t.me/muslim_appss/355",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/355.apk",
+  "size": 5754742
  },
  {
   "id": 354,
@@ -4450,7 +4474,9 @@
   "video": "",
   "doc": "com.musiimtube.ans_#1_1.0.apk",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/354"
+  "tg": "https://t.me/muslim_appss/354",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/354.apk",
+  "size": 5473094
  },
  {
   "id": 352,
@@ -4485,7 +4511,9 @@
   "video": "",
   "doc": "MUSLIM TUBE.apk",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/350"
+  "tg": "https://t.me/muslim_appss/350",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/350.apk",
+  "size": 5450374
  },
  {
   "id": 349,
@@ -4518,7 +4546,9 @@
   "video": "",
   "doc": "صِلة .apk",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/348"
+  "tg": "https://t.me/muslim_appss/348",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/348.apk",
+  "size": 6156997
  },
  {
   "id": 347,
@@ -4534,7 +4564,9 @@
   "video": "",
   "doc": "صلة.apk",
   "cat": "الحديث والفقه",
-  "tg": "https://t.me/muslim_appss/347"
+  "tg": "https://t.me/muslim_appss/347",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/347.apk",
+  "size": 6087360
  },
  {
   "id": 346,
@@ -4568,7 +4600,9 @@
   "video": "",
   "doc": "صلة.apk",
   "cat": "الحديث والفقه",
-  "tg": "https://t.me/muslim_appss/344"
+  "tg": "https://t.me/muslim_appss/344",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/344.apk",
+  "size": 6087360
  },
  {
   "id": 343,
@@ -4600,7 +4634,9 @@
   "video": "",
   "doc": "SELA.apk",
   "cat": "الأذكار",
-  "tg": "https://t.me/muslim_appss/342"
+  "tg": "https://t.me/muslim_appss/342",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/342.apk",
+  "size": 6747170
  },
  {
   "id": 341,
@@ -4617,7 +4653,9 @@
   "video": "",
   "doc": "CleanAr.apk",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/341"
+  "tg": "https://t.me/muslim_appss/341",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/341.apk",
+  "size": 108231
  },
  {
   "id": 340,
@@ -4682,7 +4720,9 @@
   "video": "",
   "doc": "muslbro Setup 1.0.2.exe",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/337"
+  "tg": "https://t.me/muslim_appss/337",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/337.exe",
+  "size": 72289200
  },
  {
   "id": 336,
@@ -4699,7 +4739,9 @@
   "video": "",
   "doc": "اكثر_بلاء_ابتلى_به_الشباب_في_بداية_الالتزام.pdf",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/336"
+  "tg": "https://t.me/muslim_appss/336",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/336.pdf",
+  "size": 116175
  },
  {
   "id": 335,
@@ -4715,7 +4757,9 @@
   "video": "",
   "doc": "ffs.zip",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/335"
+  "tg": "https://t.me/muslim_appss/335",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/335.zip",
+  "size": 39192
  },
  {
   "id": 334,
@@ -4731,7 +4775,9 @@
   "video": "",
   "doc": "stasf1.zip",
   "cat": "الأذكار",
-  "tg": "https://t.me/muslim_appss/334"
+  "tg": "https://t.me/muslim_appss/334",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/334.zip",
+  "size": 39059
  },
  {
   "id": 333,
@@ -4748,7 +4794,9 @@
   "video": "",
   "doc": "farcaty1.zip",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/333"
+  "tg": "https://t.me/muslim_appss/333",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/333.zip",
+  "size": 12667
  },
  {
   "id": 332,
@@ -4765,7 +4813,9 @@
   "video": "",
   "doc": "تطبيق_لوحة_مفاتيح_المسلم_base.apk",
   "cat": "أخرى",
-  "tg": "https://t.me/muslim_appss/332"
+  "tg": "https://t.me/muslim_appss/332",
+  "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/332.apk",
+  "size": 157306
  },
  {
   "id": 331,
