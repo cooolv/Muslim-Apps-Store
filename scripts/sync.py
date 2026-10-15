@@ -17,20 +17,24 @@ for _ in range(300):  # صفحات القناة العامة (بدون أي تو
     if not ms: break
     page = []
     for m in ms:
-        try: i = int(m["data-post"].split("/")[1])
-        except Exception: continue
-        t = m.select_one(".tgme_widget_message_text")
-        if t:
-            for br in t.find_all("br"): br.replace_with("\n")
-        photos = [re.search(r"url\('(.+?)'\)", a.get("style", "")).group(1)
-                  for a in m.select(".tgme_widget_message_photo_wrap") if "url(" in a.get("style", "")]
-        v = m.select_one("video")
-        d = m.select_one(".tgme_widget_message_document_title")
-        tm = m.select_one("time")
-        raw[i] = dict(id=i, date=tm["datetime"] if tm else "", text=t.get_text().strip() if t else "",
-                      links=[a["href"] for a in t.find_all("a", href=True)] if t else [],
-                      photos=photos, video=v["src"] if v and v.get("src") else "", doc=d.get_text().strip() if d else "")
-        page.append(i)
+        try:
+            i = int(m["data-post"].split("/")[1])
+            t = m.select_one(".tgme_widget_message_text")
+            if t:
+                for br in t.find_all("br"): br.replace_with("\n")
+            photos = []
+            for a in m.select(".tgme_widget_message_photo_wrap"):
+                u = re.search(r"url\(['\"]?(.+?)['\"]?\)", a.get("style", ""))
+                if u: photos.append(u.group(1))
+            v = m.select_one("video")
+            d = m.select_one(".tgme_widget_message_document_title")
+            tm = m.select_one(".tgme_widget_message_date time") or m.select_one("time")
+            raw[i] = dict(id=i, date=(tm.get("datetime", "") if tm else ""), text=t.get_text().strip() if t else "",
+                          links=[a["href"] for a in t.find_all("a", href=True)] if t else [],
+                          photos=photos, video=(v.get("src") or "") if v else "", doc=d.get_text().strip() if d else "")
+            page.append(i)
+        except Exception as e:
+            print("skip message:", e)
     if not page or min(page) <= maxknown + 1: break
     before = min(page)
 new, pend = [], []
