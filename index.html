@@ -53,7 +53,7 @@ Promise.all([j('data/posts.json'),j('data/overrides.json')]).then(([p,o])=>{P=[.
 function draw(){const q=$q.value.trim();g.innerHTML='';tb.querySelectorAll('button').forEach(x=>x.style.display=(P.some(p=>p.type==x.dataset.k)||x.dataset.k==tab)?'':'none');cats.innerHTML='';if(tab=='app')CATS.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.className=c==cat?'on':'';b.onclick=()=>{cat=c;draw()};cats.append(b)});
  P.filter(p=>p.type==tab&&(p.title+p.desc).includes(q)&&(tab!='app'||cat=='الكل'||p.cat==cat)).forEach((p,i)=>{const c=document.createElement('div');
   c.style.animationDelay=Math.min(i*40,600)+'ms';
-  const im=p.images&&p.images[0]?`<img class="ic" loading="lazy" src="${E(p.images[0])}">`:'<div class="ic"></div>';
+  const ic0=p.icon||(p.images&&p.images[0]);const im=ic0?`<img class="ic" loading="lazy" src="${E(ic0)}">`:'<div class="ic"></div>';
   c.className='card'+(tab=='news'?' news':'');
   c.innerHTML=tab=='news'?`${p.images[0]?`<img loading=lazy src="${E(p.images[0])}">`:''}<div><h3>${E(p.title)}</h3><p>${E(p.desc.slice(0,300))}</p><span class=m>${E(p.date.slice(0,10))}</span></div>`
    :`<div class=row>${im}<div><h3>${E(p.title)}</h3><div class=m>${p.version?'v'+E(p.version):''}</div><div class=st>${stars(avg(p.id))} <span class=m>${avg(p.id)?avg(p.id).toFixed(1):'جديد'}</span></div></div></div><button class=btn>عرض</button>`;
@@ -65,9 +65,9 @@ addEventListener('fb',async()=>{lgn.style.display='';window.authUI=()=>{const u=
 const TABS=[['app','📱 التطبيقات'],['desktop','🖥 سطح المكتب'],['addons','🧩 الإضافات'],['media','🎞 الملفات والوسائط'],['news','📰 آخر الأخبار']];
 TABS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.k=k;b.className=k==tab?'on':'';b.onclick=()=>{tab=k;tb.querySelectorAll('button').forEach(x=>x.className=x.dataset.k==k?'on':'');draw()};tb.append(b)});
 function open_(p){const url=p.file||(p.links&&p.links[0])||p.tg;
- d.innerHTML=`<div class=row>${p.images[0]?`<img class=ic src="${E(p.images[0])}">`:'<div class=ic></div>'}<div><h2 style="margin:0">${E(p.title)}</h2><div class=st>${stars(avg(p.id))}</div></div></div>
+ d.innerHTML=`<div class=row>${(p.icon||p.images[0])?`<img class=ic src="${E(p.icon||p.images[0])}">`:'<div class=ic></div>'}<div><h2 style="margin:0">${E(p.title)}</h2><div class=st>${stars(avg(p.id))}</div></div></div>
  ${p.type!='news'?`${(p.file||p.doc||(p.links&&p.links[0]))?`<a class=btn id=dl href="${E(url)}" target=_blank rel=noopener>⬇ ${p.file?'تحميل مباشر':'تحميل'}<span class=bar></span></a>`:''} ${p.tg?`<a class=btn style="background:var(--au)" href="${E(p.tg)}" target=_blank>تليجرام</a>`:''}`:''}
- <div class=shots>${p.images.slice(1).map(x=>`<img loading=lazy src="${E(x)}">`).join('')}</div>
+ <div class=shots>${p.images.slice(p.icon?0:1).map(x=>`<img loading=lazy src="${E(x)}">`).join('')}</div>
  ${p.video?`<video controls style="width:100%;border-radius:14px" src="${E(p.video)}"></video>`:''}
  <div class=desc>${E(p.desc)}</div><h3>التقييمات</h3><div id=rl></div>
  <select id=rs>${[5,4,3,2,1].map(n=>`<option value=${n}>${stars(n)}</option>`).join('')}</select>
