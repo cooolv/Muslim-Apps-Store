@@ -28,7 +28,7 @@ footer{text-align:center;color:var(--m);padding:20px;font-size:13px}footer a{col
 </style></head><body>
 <header><small>بسم الله الرحمن الرحيم</small><h1>🕌 متجر التطبيقات الإسلامية</h1><div>تطبيقات نافعة، تُحدَّث تلقائياً من قناتنا</div><button id=lgn class=btn style="display:none;background:#0005"></button></header>
 <div class="s"><input id="q" placeholder="ابحث عن تطبيق أو خبر..."></div>
-<div class="tabs"><button id="ta" class="on">📱 التطبيقات</button><button id="tn">📰 آخر الأخبار</button></div>
+<div class=tabs id=tb></div>
 <div class=tabs id=cats></div><main id="g"></main><dialog id="d"></dialog>
 <footer>تابعنا على <a href="https://t.me/muslim_appss">تليجرام</a> · تُرفع التطبيقات بعد مراجعة موافقتها للشريعة</footer>
 <script type="module">
@@ -38,8 +38,8 @@ const V='https://www.gstatic.com/firebasejs/10.14.1/';
 const A=await import(V+'firebase-app.js'),U=await import(V+'firebase-auth.js'),F=await import(V+'firebase-firestore.js');
 const app=A.initializeApp(CFG),au=U.getAuth(app),db=F.getFirestore(app);
 window.FB={login:()=>U.signInWithPopup(au,new U.GoogleAuthProvider()),logout:()=>U.signOut(au),user:()=>au.currentUser,
- save:r=>F.setDoc(F.doc(db,'store_reviews',r.p+'_'+au.currentUser.uid),{...r,u:au.currentUser.uid,ts:Date.now()}),
- all:async()=>(await F.getDocs(F.collection(db,'store_reviews'))).docs.map(d=>d.data())};
+ save:r=>F.setDoc(F.doc(db,'reviews',r.p+'_'+au.currentUser.uid),{...r,u:au.currentUser.uid,ts:Date.now()}),
+ all:async()=>(await F.getDocs(F.collection(db,'reviews'))).docs.map(d=>d.data())};
 U.onAuthStateChanged(au,()=>window.authUI&&authUI());
 dispatchEvent(new Event('fb'));}
 </script>
@@ -50,8 +50,8 @@ const avg=i=>{const a=R[i]||[];return a.length?a.reduce((s,x)=>s+x.s,0)/a.length
 const stars=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
 const j=u=>fetch(u+'?t='+Date.now()).then(r=>r.json()).catch(()=>[]);
 Promise.all([j('data/posts.json'),j('data/overrides.json')]).then(([p,o])=>{P=[...Object.entries(o).filter(([k])=>k[0]=='m').map(([k,v])=>({id:k,type:'app',date:'',desc:'',images:[],links:[],tg:'',...v})),...p.map(x=>({...x,...(o[x.id]||{})}))].filter(x=>!x.hidden);draw()});
-function draw(){const q=$q.value.trim();g.innerHTML='';cats.innerHTML='';if(tab=='app')CATS.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.className=c==cat?'on':'';b.onclick=()=>{cat=c;draw()};cats.append(b)});
- P.filter(p=>p.type==tab&&(p.title+p.desc).includes(q)&&(tab=='news'||cat=='الكل'||p.cat==cat)).forEach((p,i)=>{const c=document.createElement('div');
+function draw(){const q=$q.value.trim();g.innerHTML='';tb.querySelectorAll('button').forEach(x=>x.style.display=(P.some(p=>p.type==x.dataset.k)||x.dataset.k==tab)?'':'none');cats.innerHTML='';if(tab=='app')CATS.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.className=c==cat?'on':'';b.onclick=()=>{cat=c;draw()};cats.append(b)});
+ P.filter(p=>p.type==tab&&(p.title+p.desc).includes(q)&&(tab!='app'||cat=='الكل'||p.cat==cat)).forEach((p,i)=>{const c=document.createElement('div');
   c.style.animationDelay=Math.min(i*40,600)+'ms';
   const im=p.images&&p.images[0]?`<img class="ic" loading="lazy" src="${E(p.images[0])}">`:'<div class="ic"></div>';
   c.className='card'+(tab=='news'?' news':'');
@@ -62,10 +62,11 @@ function draw(){const q=$q.value.trim();g.innerHTML='';cats.innerHTML='';if(tab=
 const $q=document.getElementById('q');$q.oninput=draw;
 addEventListener('fb',async()=>{lgn.style.display='';window.authUI=()=>{const u=FB.user();lgn.textContent=u?'خروج ('+(u.displayName||'')+')':'🔐 تسجيل الدخول';lgn.onclick=()=>u?FB.logout():FB.login()};authUI();
  try{R={};(await FB.all()).forEach(x=>(R[x.p]=R[x.p]||[]).push(x))}catch(e){}draw()});
-ta.onclick=()=>{tab='app';ta.className='on';tn.className='';draw()};tn.onclick=()=>{tab='news';tn.className='on';ta.className='';draw()};
+const TABS=[['app','📱 التطبيقات'],['desktop','🖥 سطح المكتب'],['addons','🧩 الإضافات'],['media','🎞 الملفات والوسائط'],['news','📰 آخر الأخبار']];
+TABS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.k=k;b.className=k==tab?'on':'';b.onclick=()=>{tab=k;tb.querySelectorAll('button').forEach(x=>x.className=x.dataset.k==k?'on':'');draw()};tb.append(b)});
 function open_(p){const url=p.file||(p.links&&p.links[0])||p.tg;
  d.innerHTML=`<div class=row>${p.images[0]?`<img class=ic src="${E(p.images[0])}">`:'<div class=ic></div>'}<div><h2 style="margin:0">${E(p.title)}</h2><div class=st>${stars(avg(p.id))}</div></div></div>
- ${p.type=='app'?`<a class=btn id=dl href="${E(url)}" target=_blank rel=noopener>⬇ ${p.file?'تحميل مباشر':'تحميل'}<span class=bar></span></a> ${p.tg?`<a class=btn style="background:var(--au)" href="${E(p.tg)}" target=_blank>تليجرام</a>`:''}`:''}
+ ${p.type!='news'?`${(p.file||p.doc||(p.links&&p.links[0]))?`<a class=btn id=dl href="${E(url)}" target=_blank rel=noopener>⬇ ${p.file?'تحميل مباشر':'تحميل'}<span class=bar></span></a>`:''} ${p.tg?`<a class=btn style="background:var(--au)" href="${E(p.tg)}" target=_blank>تليجرام</a>`:''}`:''}
  <div class=shots>${p.images.slice(1).map(x=>`<img loading=lazy src="${E(x)}">`).join('')}</div>
  ${p.video?`<video controls style="width:100%;border-radius:14px" src="${E(p.video)}"></video>`:''}
  <div class=desc>${E(p.desc)}</div><h3>التقييمات</h3><div id=rl></div>
