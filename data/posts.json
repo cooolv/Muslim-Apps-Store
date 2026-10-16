@@ -5456,7 +5456,7 @@
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/305.zip",
   "size": 3026029,
   "hasmedia": false,
-  "itries": 1
+  "itries": 2
  },
  {
   "id": 304,
@@ -5644,7 +5644,8 @@
   "tg": "https://t.me/muslim_appss/271",
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/271.apk",
   "size": 76943390,
-  "hasmedia": false
+  "hasmedia": false,
+  "itries": 1
  },
  {
   "id": 270,
@@ -6037,7 +6038,8 @@
   "tg": "https://t.me/muslim_appss/220",
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/220.exe",
   "size": 11117160,
-  "hasmedia": false
+  "hasmedia": false,
+  "icon": "media/icon_220.png"
  },
  {
   "id": 219,
@@ -6058,7 +6060,8 @@
   "tg": "https://t.me/muslim_appss/219",
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/219.zip",
   "size": 130794,
-  "hasmedia": false
+  "hasmedia": false,
+  "icon": "media/icon_219.png"
  },
  {
   "id": 218,
@@ -6168,7 +6171,8 @@
   "tg": "https://t.me/muslim_appss/200",
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/200.zip",
   "size": 128823,
-  "hasmedia": false
+  "hasmedia": false,
+  "icon": "media/icon_200.png"
  },
  {
   "id": 199,
@@ -7218,7 +7222,8 @@
   "tg": "https://t.me/muslim_appss/104",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/104.apk",
-  "size": 198915
+  "size": 198915,
+  "icon": "media/icon_104.png"
  },
  {
   "id": 103,
@@ -7254,7 +7259,8 @@
   "tg": "https://t.me/muslim_appss/102",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/102.apk",
-  "size": 6027178
+  "size": 6027178,
+  "icon": "media/icon_102.png"
  },
  {
   "id": 101,
@@ -7355,7 +7361,8 @@
   "tg": "https://t.me/muslim_appss/96",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/96.apk",
-  "size": 4820274
+  "size": 4820274,
+  "icon": "media/icon_96.png"
  },
  {
   "id": 95,
@@ -7415,7 +7422,8 @@
   "tg": "https://t.me/muslim_appss/93",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/93.apk",
-  "size": 509530
+  "size": 509530,
+  "icon": "media/icon_93.png"
  },
  {
   "id": 91,
@@ -7438,7 +7446,8 @@
   "tg": "https://t.me/muslim_appss/91",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/91.apk",
-  "size": 2045185
+  "size": 2045185,
+  "icon": "media/icon_91.png"
  },
  {
   "id": 90,
@@ -7500,7 +7509,8 @@
   "tg": "https://t.me/muslim_appss/87",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/87.apk",
-  "size": 5030590
+  "size": 5030590,
+  "icon": "media/icon_87.png"
  },
  {
   "id": 86,
@@ -7667,7 +7677,8 @@
   "tg": "https://t.me/muslim_appss/77",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/77.apk",
-  "size": 5542695
+  "size": 5542695,
+  "icon": "media/icon_77.png"
  },
  {
   "id": 76,
@@ -7706,7 +7717,8 @@
   "tg": "https://t.me/muslim_appss/75",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/75.apk",
-  "size": 7169217
+  "size": 7169217,
+  "icon": "media/icon_75.png"
  },
  {
   "id": 74,
@@ -7811,7 +7823,8 @@
   "tg": "https://t.me/muslim_appss/69",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/69.apk",
-  "size": 135864
+  "size": 135864,
+  "icon": "media/icon_69.png"
  },
  {
   "id": 68,
@@ -7872,7 +7885,8 @@
   "tg": "https://t.me/muslim_appss/66",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/66.apk",
-  "size": 1435616
+  "size": 1435616,
+  "icon": "media/icon_66.png"
  },
  {
   "id": 65,
@@ -8013,7 +8027,8 @@
   "tg": "https://t.me/muslim_appss/58",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/58.apk",
-  "size": 6849598
+  "size": 6849598,
+  "icon": "media/icon_58.png"
  },
  {
   "id": 56,
@@ -8037,7 +8052,8 @@
   "tg": "https://t.me/muslim_appss/56",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/56.apk",
-  "size": 26428754
+  "size": 26428754,
+  "icon": "media/icon_56.png"
  },
  {
   "id": 55,
@@ -8074,7 +8090,8 @@
   "tg": "https://t.me/muslim_appss/53",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/53.apk",
-  "size": 567372
+  "size": 567372,
+  "icon": "media/icon_53.png"
  },
  {
   "id": 52,
@@ -8206,7 +8223,8 @@
   "tg": "https://t.me/muslim_appss/45",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/45.apk",
-  "size": 5030590
+  "size": 5030590,
+  "icon": "media/icon_45.png"
  },
  {
   "id": 44,
@@ -8246,7 +8264,8 @@
   "tg": "https://t.me/muslim_appss/43",
   "hasmedia": false,
   "file": "https://github.com/cooolv/Muslim-Apps-Store/releases/download/apps/43.apk",
-  "size": 5030590
+  "size": 5030590,
+  "icon": "media/icon_43.png"
  },
  {
   "id": 42,
