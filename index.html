@@ -50,7 +50,7 @@ let P=[],tab='app',cat='الكل',R=JSON.parse(localStorage.rv||'{}');const CATS
 const avg=i=>{const a=R[i]||[];return a.length?a.reduce((s,x)=>s+x.s,0)/a.length:0};
 const stars=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
 const j=u=>fetch(u+'?t='+Date.now()).then(r=>r.json()).catch(()=>[]);
-Promise.all([j('data/posts.json'),j('data/overrides.json')]).then(([p,o])=>{P=[...Object.entries(o).filter(([k])=>k[0]=='m').map(([k,v])=>({id:k,type:'app',date:'',desc:'',images:[],links:[],tg:'',...v})),...p.map(x=>({...x,...(o[x.id]||{})}))].filter(x=>!x.hidden);draw()});
+Promise.all([j('data/posts.json'),j('data/overrides.json')]).then(([p,o])=>{P=[...Object.entries(o).filter(([k])=>k[0]=='m').map(([k,v])=>({id:k,type:'app',date:'',desc:'',images:[],links:[],tg:'',...v})),...p.map(x=>({...x,...(o[x.id]||{})}))].filter(x=>!x.hidden);draw();const h=location.hash.match(/^#p(\d+)/);if(h){const x=P.find(p=>String(p.id)===h[1]);if(x){tab=x.type;tb.querySelectorAll('button').forEach(b=>b.className=b.dataset.k==tab?'on':'');draw();open_(x)}}});
 function draw(){const q=$q.value.trim();g.innerHTML='';tb.querySelectorAll('button').forEach(x=>x.style.display=(P.some(p=>p.type==x.dataset.k)||x.dataset.k==tab)?'':'none');cats.innerHTML='';if(tab=='app')CATS.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.className=c==cat?'on':'';b.onclick=()=>{cat=c;draw()};cats.append(b)});
  P.filter(p=>p.type==tab&&(p.title+p.desc).includes(q)&&(tab!='app'||cat=='الكل'||p.cat==cat)).forEach((p,i)=>{const c=document.createElement('div');
   c.style.animationDelay=Math.min(i*40,600)+'ms';
