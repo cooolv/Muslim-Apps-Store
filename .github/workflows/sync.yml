@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       refresh: {description: "إعادة فحص كل تاريخ القناة", type: boolean, default: false}
+      dry_run: {description: "تجربة النشر بدون نشر فعلي", type: boolean, default: false}
 permissions:
   contents: write
   pages: write
@@ -31,9 +32,27 @@ jobs:
           TG_SESSION: ${{ secrets.TG_SESSION }}
       - run: python scripts/icons.py
         continue-on-error: true
-      - env: {GH_TOKEN: "${{ github.token }}"}
+      - name: commit data
+        env: {GH_TOKEN: "${{ github.token }}"}
         run: |
           git config user.name "store-bot"; git config user.email "bot@users.noreply.github.com"
           git add -A
           git diff --cached --quiet || (git commit -m "sync $(date -u +%F_%T)" && git pull --rebase -q && git push)
           gh api -X POST repos/${{ github.repository }}/pages/builds >/dev/null 2>&1 || true
+      - name: publish to Facebook and Blogger
+        continue-on-error: true
+        run: python scripts/publish.py
+        env:
+          CHANNEL: muslim_appss
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+      - name: commit publish state
+        if: always()
+        run: |
+          git add -A
+          git diff --cached --quiet || (git commit -m "publish state" && git pull --rebase -q && git push)
